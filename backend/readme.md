@@ -20,3 +20,4 @@ python -m flask db upgrade
 configuration .env{
     DATABASE_URL=votre base de donne
 }
+

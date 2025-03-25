@@ -1,10 +1,11 @@
+import { Box } from '@mui/material'
 import React from 'react'
 
 const Historique = () => {
   return (
-    <div className='w-[77rem] h-[40.5rem] ml-auto'>
-      <h1>Historique page</h1>
-    </div>
+    <Box className='flex-1 p-4'>
+          <h1>Dashboard page</h1>
+    </Box>
   )
 }
 

@@ -11,7 +11,7 @@ import React from 'react'
 import { NavLink } from "react-router-dom";
 import { Box, ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material"
 
-const NavBar = () => {
+const NavBar = ({children}) => {
   //données a affiché dans la barre de navigation 
   const navigation = [
     {name: "Dashboard", path: "dashboard", icon:<MdSpaceDashboard /> },
@@ -36,21 +36,24 @@ const NavBar = () => {
           <p className="font-bold text-blue-900 mt-1.5">Accèss banque</p>
         </div>
       </Box>
-      {
-        // Affichage des données dans le tableau navigation
-        navigation.map((nav, id) => (
-          <ListItem key={id} sx={{ p: 0 }}>
-            <NavLink to={nav.path} activeClassName="active" className="w-full">
-              <ListItemButton sx={{ '&:hover': { borderRadius: "5px" } }}>
-                <ListItemIcon>
-                  {nav.icon}
-                </ListItemIcon>
-                <ListItemText primary={ nav.name } />
-              </ListItemButton>
-            </NavLink>
-          </ListItem>
-        ))
-      }
+      <Box>
+        {
+          // Affichage des données dans le tableau navigation
+          navigation.map((nav, id) => (
+            <ListItem key={id} sx={{ p: 0 }}>
+              <NavLink to={nav.path} activeClassName="active" className="w-full">
+                <ListItemButton sx={{ '&:hover': { borderRadius: "5px" } }}>
+                  <ListItemIcon>
+                    {nav.icon}
+                  </ListItemIcon>
+                  <ListItemText primary={ nav.name } />
+                </ListItemButton>
+              </NavLink>
+            </ListItem>
+          ))
+        }
+      </Box>
+      <main>{children}</main>
     </Box>
   )
 }

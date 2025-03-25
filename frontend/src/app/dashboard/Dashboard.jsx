@@ -1,12 +1,12 @@
-import { Box } from '@mui/material'
-import React from 'react'
+import { Box } from '@mui/material';
+import React from 'react';
 
 const Dashboard = () => {
   return (
-    <Box className='w-[80vw] ml-auto '>
+    <Box className='flex-1 p-4'>
       <h1>Dashboard page</h1>
     </Box>
-  )
+  );
 }
 
-export default Dashboard
+export default Dashboard;

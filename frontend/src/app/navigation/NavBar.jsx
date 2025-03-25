@@ -15,7 +15,7 @@ import { ListItem, ListItemButton, ListItemIcon, ListItemText, responsiveFontSiz
 import { Link, Outlet } from "react-router-dom";
 
 const drawerWidth = 240;
-
+const drawerMarginTop = 9;
 function NavBar(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -44,7 +44,6 @@ function NavBar(props) {
 
   const drawer = (
     <div>
-      <h1 className="flex justify-center p-5 text-blue-900 font-bold">Accèss Banque</h1>
       <List>
         {
           navigation.map((url, id) =>(
@@ -71,7 +70,7 @@ function NavBar(props) {
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <AppBar position="fixed"
-        sx={{ width: { sm: `calc(100% - ${drawerWidth}px)` }, ml: { sm: `${drawerWidth}px` }, boxShadow: "none", borderBottom: "1px solid #e0e0d1" }}
+        sx={{  boxShadow: "none", borderBottom: "1px solid #e0e0d1" }}
       >
         <Toolbar sx={{ background: "white", color: "black" }}>
           <IconButton color="inherit" aria-label="open drawer" edge="start" onClick={handleDrawerToggle} sx={{ mr: 2, display: { sm: 'none' } }}>
@@ -79,10 +78,10 @@ function NavBar(props) {
           </IconButton>
         </Toolbar>
       </AppBar>
-      <Box component="nav" sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }} aria-label="mailbox folders">
-        <Drawer container={container} variant="temporary" open={mobileOpen} onTransitionEnd={handleDrawerTransitionEnd}
+      <Box   component="nav" sx={{ width: { sm: drawerMarginTop }, flexShrink: { sm: 0 } }} aria-label="mailbox folders">
+        <Drawer  container={container} variant="temporary" open={mobileOpen} onTransitionEnd={handleDrawerTransitionEnd}
           onClose={handleDrawerClose} sx={{ display: { xs: 'block', sm: 'none' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth},
           }}
           slotProps={{
             root: {
@@ -91,12 +90,13 @@ function NavBar(props) {
           }}
         >
           {drawer}
-        </Drawer>
+        </Drawer >
+
         <Drawer
           variant="permanent"
           sx={{
             display: { xs: 'none', sm: 'block' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth, boxShadow: 'none' }, // <-- Pas d'ombre
+            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth, boxShadow: 'none', marginTop: drawerMarginTop, },  // <-- Pas d'ombre
           }}
           open
         >
@@ -104,7 +104,8 @@ function NavBar(props) {
         </Drawer>
 
       </Box>
-      <Box component="main" sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}>
+      <Box component="main" sx={{ flexGrow: 1, p: 3, width: { xs: "100%", sm: "80%", md: "75%", lg: "70%" },  }}>
+
         <Toolbar />
         <Outlet />
       </Box>

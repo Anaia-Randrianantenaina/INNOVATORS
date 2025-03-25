@@ -7,12 +7,14 @@ function App() {
   return (
     <div>
       <Router>
-        <NavBar />
         <Routes>
-          <Route path="/dashboard" element={ <Dashboard/> } />
-          <Route path="/user" element={ <User/> } />
+          <Route path="/" element={<NavBar />}>
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="user" element={<User />} />
+          </Route>
         </Routes>
       </Router>
+
     </div>
   )
 }

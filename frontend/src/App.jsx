@@ -1,14 +1,14 @@
 import React from 'react'
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
-import Menu from './app/menu/Menu';
-import NavBar from './app/navigation/NavBar';
+import Navigation from './app/navigation/Navigation';
+import Dashboard from './app/dashboard/Dashboard';
 
 const App = () => {
   return (
    <Router>
+    <Navigation/>
     <Routes>
-      <Route path="/" element={<Menu/>}/>
-      <Route path="/navbar" element={<NavBar/>}/>
+      <Route path="dashboard" element={<Dashboard/>}/>
     </Routes>
    </Router>
   )

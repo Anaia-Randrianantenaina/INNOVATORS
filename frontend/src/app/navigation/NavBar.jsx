@@ -28,7 +28,7 @@ const NavBar = () => {
 
   return (
     // Barre de navigation
-    <Box className="w-[250px] h-[100vh] shadow-lg hidden sm:hidden md:hidden lg:block xl:block">
+    <Box className="w-[250px] h-[100vh] shadow-lg hidden sm:hidden md:hidden lg:block xl:block bg-white">
       {/* ----------------------------------Contenu qui contient le logo------------------------------ */}
       <Box className="mt-2">
         <div className="flex justify-center me-10">

@@ -1,3 +1,4 @@
+import { GrValidate } from "react-icons/gr"; 
 import { MdDashboard } from "react-icons/md"; 
 import { CiSquareQuestion } from "react-icons/ci"; 
 import { AiOutlineUser } from "react-icons/ai"; 
@@ -12,7 +13,7 @@ import List from '@mui/material/List';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import { ListItem, ListItemButton, ListItemIcon, ListItemText, responsiveFontSizes } from "@mui/material";
-import { Link, Outlet } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 
 const drawerWidth = 240;
 const drawerMarginTop = 9;
@@ -24,6 +25,11 @@ function NavBar(props) {
   const navigation = [
     { path: "dashboard", name: "Dashboard", icon: <MdDashboard className="text-2xl" />  },
     { path: "demande", name: "Demande", icon:<CiSquareQuestion className="text-2xl" />  },
+    { path: "validation", name: "Validation", icon:<GrValidate />  },
+    { path: "livraison", name: "Livraison", icon:<CiSquareQuestion className="text-2xl" />  },
+    { path: "suivi", name: "Suivi", icon:<CiSquareQuestion className="text-2xl" />  },
+    { path: "historique", name: "Historique", icon:<CiSquareQuestion className="text-2xl" />  },
+    { path: "analyse", name: "Analyse", icon:<CiSquareQuestion className="text-2xl" />  },
     { path: "user", name: "Utilisateur", icon:<AiOutlineUser className="text-xl" /> }
   ]
 
@@ -48,14 +54,14 @@ function NavBar(props) {
         {
           navigation.map((url, id) =>(
             <ListItem key={id} disablePadding>
-              <Link to={url.path} className="w-[500px]">
-                <ListItemButton onClick={ handleDrawerClose }>
+              <NavLink to={url.path} className="w-[220px]" activeClassName="active">
+                <ListItemButton sx={{ '&:hover' : {borderTopRightRadius: "10px", borderBottomRightRadius: "10px" } }} onClick={ handleDrawerClose }>
                   <ListItemIcon>
                     {url.icon}
                   </ListItemIcon>
                   <ListItemText primary={url.name} />
                 </ListItemButton>
-              </Link>
+              </NavLink>
             </ListItem>
           ))
         }
@@ -76,9 +82,17 @@ function NavBar(props) {
           <IconButton color="inherit" aria-label="open drawer" edge="start" onClick={handleDrawerToggle} sx={{ mr: 2, display: { sm: 'none' } }}>
             <MenuIcon />
           </IconButton>
+          <Box className="flex">
+            <Box>
+              <img src="./logo.jpg" alt="logo" className="w-[40px]" />
+            </Box>
+            <Box>
+              <p className="mt-1">Accèss banque</p>
+            </Box>
+          </Box>
         </Toolbar>
       </AppBar>
-      <Box   component="nav" sx={{ width: { sm: drawerMarginTop }, flexShrink: { sm: 0 } }} aria-label="mailbox folders">
+      <Box component="nav" sx={{ width: { sm: drawerMarginTop }, flexShrink: { sm: 0 } }} aria-label="mailbox folders">
         <Drawer  container={container} variant="temporary" open={mobileOpen} onTransitionEnd={handleDrawerTransitionEnd}
           onClose={handleDrawerClose} sx={{ display: { xs: 'block', sm: 'none' },
             '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth},
@@ -104,8 +118,7 @@ function NavBar(props) {
         </Drawer>
 
       </Box>
-      <Box component="main" sx={{ flexGrow: 1, p: 3, width: { xs: "100%", sm: "80%", md: "75%", lg: "70%" },  }}>
-
+      <Box component="main" sx={{ flexGrow: 1, p: 3, width: { xs: "100%", sm: "80%", md: "75%", lg: "70%" } }}>
         <Toolbar />
         <Outlet />
       </Box>

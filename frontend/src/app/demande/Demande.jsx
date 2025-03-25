@@ -1,11 +1,11 @@
 import React from 'react'
 
-const Dashboard = () => {
+const Demande = () => {
   return (
     <div className='w-[67rem] ml-auto'>
-      <h1>Dashboard page</h1>
+      <h1>Demande page</h1>
     </div>
   )
 }
 
-export default Dashboard
+export default Demande

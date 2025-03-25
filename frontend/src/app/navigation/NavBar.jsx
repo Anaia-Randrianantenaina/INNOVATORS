@@ -1,3 +1,10 @@
+import { IoIosNotifications } from "react-icons/io"; 
+import { BsFillChatSquareQuoteFill } from "react-icons/bs"; 
+import { FaUserAlt } from "react-icons/fa"; 
+import { BiAnalyse } from "react-icons/bi"; 
+import { MdHistory } from "react-icons/md"; 
+import { RiChatFollowUpFill } from "react-icons/ri"; 
+import { MdOutlineDeliveryDining } from "react-icons/md"; 
 import { GrValidate } from "react-icons/gr"; 
 import { MdDashboard } from "react-icons/md"; 
 import { CiSquareQuestion } from "react-icons/ci"; 
@@ -12,7 +19,7 @@ import IconButton from '@mui/material/IconButton';
 import List from '@mui/material/List';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
-import { ListItem, ListItemButton, ListItemIcon, ListItemText, responsiveFontSizes } from "@mui/material";
+import { Avatar, Chip, ListItem, ListItemButton, ListItemIcon, ListItemText, responsiveFontSizes } from "@mui/material";
 import { NavLink, Outlet } from "react-router-dom";
 
 const drawerWidth = 240;
@@ -24,13 +31,13 @@ function NavBar(props) {
 
   const navigation = [
     { path: "dashboard", name: "Dashboard", icon: <MdDashboard className="text-2xl" />  },
-    { path: "demande", name: "Demande", icon:<CiSquareQuestion className="text-2xl" />  },
-    { path: "validation", name: "Validation", icon:<GrValidate />  },
-    { path: "livraison", name: "Livraison", icon:<CiSquareQuestion className="text-2xl" />  },
-    { path: "suivi", name: "Suivi", icon:<CiSquareQuestion className="text-2xl" />  },
-    { path: "historique", name: "Historique", icon:<CiSquareQuestion className="text-2xl" />  },
-    { path: "analyse", name: "Analyse", icon:<CiSquareQuestion className="text-2xl" />  },
-    { path: "user", name: "Utilisateur", icon:<AiOutlineUser className="text-xl" /> }
+    { path: "demande", name: "Demande", icon: <BsFillChatSquareQuoteFill className="text-2xl" />  },
+    { path: "validation", name: "Validation", icon:<GrValidate className="text-2xl"/>  },
+    { path: "livraison", name: "Livraison", icon: <MdOutlineDeliveryDining className="text-2xl" />   },
+    { path: "suivi", name: "Suivi", icon:<RiChatFollowUpFill className="text-2xl" />  },
+    { path: "historique", name: "Historique", icon: <MdHistory className="text-2xl" />  },
+    { path: "analyse", name: "Analyse", icon: <BiAnalyse className="text-2xl" />   },
+    { path: "user", name: "Utilisateur", icon:<FaUserAlt />  }
   ]
 
   const handleDrawerClose = () => {
@@ -76,7 +83,7 @@ function NavBar(props) {
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <AppBar position="fixed"
-        sx={{  boxShadow: "none", borderBottom: "1px solid #e0e0d1" }}
+        sx={{ borderBottom: "1px solid #e0e0d1" }}
       >
         <Toolbar sx={{ background: "white", color: "black" }}>
           <IconButton color="inherit" aria-label="open drawer" edge="start" onClick={handleDrawerToggle} sx={{ mr: 2, display: { sm: 'none' } }}>
@@ -90,12 +97,17 @@ function NavBar(props) {
               <p className="mt-1">Accèss banque</p>
             </Box>
           </Box>
+          <Box className="ml-auto flex">
+            <p className="text-3xl flex"><IoIosNotifications className="mt-1" />
+            |</p><Chip avatar={<Avatar />} label="anarana" className="mt-1" />
+          </Box>
         </Toolbar>
       </AppBar>
       <Box component="nav" sx={{ width: { sm: drawerMarginTop }, flexShrink: { sm: 0 } }} aria-label="mailbox folders">
         <Drawer  container={container} variant="temporary" open={mobileOpen} onTransitionEnd={handleDrawerTransitionEnd}
           onClose={handleDrawerClose} sx={{ display: { xs: 'block', sm: 'none' },
             '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth},
+            borderTop: "1px solid #e0e0d1", borderTopRightRadius: "10px", boxShadow: 5
           }}
           slotProps={{
             root: {
@@ -110,7 +122,7 @@ function NavBar(props) {
           variant="permanent"
           sx={{
             display: { xs: 'none', sm: 'block' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth, boxShadow: 'none', marginTop: drawerMarginTop, },  // <-- Pas d'ombre
+            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth, marginTop: drawerMarginTop, borderTop: "1px solid #e0e0d1", borderTopRightRadius: "10px", boxShadow: 5 }
           }}
           open
         >
@@ -119,7 +131,7 @@ function NavBar(props) {
 
       </Box>
       <Box component="main" sx={{ flexGrow: 1, p: 3, width: { xs: "100%", sm: "80%", md: "75%", lg: "70%" } }}>
-        <Toolbar />
+        <Toolbar/>
         <Outlet />
       </Box>
     </Box>

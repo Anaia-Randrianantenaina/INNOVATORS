@@ -10,7 +10,7 @@ Assurez-vous que vous avez installé les outils suivants avant de commencer :
 
 1. **Cloner le dépôt du projet** :
    ```bash
-   git clone <url-du-dépôt>
+   git clone <https://github.com/Anaia-Randrianantenaina/INNOVATORS.git>
 
 Accéder au répertoire du projet (frontend) : 
 cd frontend

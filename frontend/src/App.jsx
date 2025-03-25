@@ -16,7 +16,7 @@ import Historique from './app/historique/Historique';
 const App = () => {
   return (
     <Router>
-      <div className="flex h-screen relative">
+      <div className="flex h-screen relative bg-gray-100">
         <Navigation />
         <Menu />
         <div className="flex-1 p-4">

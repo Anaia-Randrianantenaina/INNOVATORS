@@ -3,7 +3,7 @@ import React from 'react'
 
 const Dashboard = () => {
   return (
-    <Box className='w-[80vw] ml-auto'>
+    <Box className='w-[80vw] ml-auto '>
       <h1>Dashboard page</h1>
     </Box>
   )

@@ -4,7 +4,5 @@
 
 
 .active{
-    background: #acdcf3;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
+    border-right: 3px solid #0076A8;
 }

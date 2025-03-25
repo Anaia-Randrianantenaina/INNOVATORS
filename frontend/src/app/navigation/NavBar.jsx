@@ -1,3 +1,4 @@
+import { IoIosNotificationsOutline } from "react-icons/io"; 
 import { IoIosNotifications } from "react-icons/io"; 
 import { BsFillChatSquareQuoteFill } from "react-icons/bs"; 
 import { FaUserAlt } from "react-icons/fa"; 
@@ -105,11 +106,12 @@ function NavBar(props) {
           <Box className="ml-auto flex">
             <p className="text-3xl flex me-3">
               <Badge badgeContent={2} max={10} color="error" className="mt-1 me-5">
-                <IoIosNotifications className="cursor-pointer" />
-              </Badge> | 
+                <IoIosNotificationsOutline className="cursor-pointer"/>
+              </Badge> <span className="text-gray-300">|</span>  
             </p>
-            <Avatar className="w-[100px] h-[100px] cursor-pointer" />
-            <Chip label="anarana" className="mt-1" />
+            
+              <Avatar className="w-[100px] h-[100px] cursor-pointer" />
+              <Chip label="anarana" className="mt-1 ml-1" />
           </Box>
         </Toolbar>
       </AppBar>

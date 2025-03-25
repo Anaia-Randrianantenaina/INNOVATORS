@@ -1,13 +1,31 @@
 from flask import request, jsonify, make_response
 from app.services.user_service import UserService
 from app.middleware.access_token import auth_required
-from app.models.black_liste_token import BlacklistToken
-from app import db
 
 def register():
+    """Inscription d'un nouvel utilisateur avec confirmation du mot de passe."""
     data = request.get_json()
-    user = UserService.register_user(data['photo'], data['nom_user'], data['email_user'], data['role_user'], data['mot_de_passe'], data['tel_user'])
-    return jsonify({"message": "Utilisateur créé", "user": user.tel_user}), 201
+
+    photo = data.get('photo')
+    nom_user = data.get('nom_user')
+    email_user = data.get('email_user')
+    role_user = data.get('role_user')
+    mot_de_passe = data.get('mot_de_passe')
+    confirmation_mot_de_passe = data.get('confirmation_mot_de_passe')
+    tel_user = data.get('tel_user')
+
+    # Vérification des champs obligatoires
+    if not all([nom_user, email_user, role_user, mot_de_passe, confirmation_mot_de_passe, tel_user]):
+        return jsonify({"message": "Tous les champs sont obligatoires."}), 400
+
+    # Inscription de l'utilisateur
+    user, error = UserService.register_user(photo, nom_user, email_user, role_user, mot_de_passe, confirmation_mot_de_passe, tel_user)
+
+    if error:
+        return jsonify({"message": error}), 400
+
+    return jsonify({"message": "Utilisateur créé avec succès."}), 201
+
 
 def connexion():
     data = request.get_json()
@@ -21,17 +39,8 @@ def connexion():
 
 @auth_required
 def profile():
-    user = request.user
-    return jsonify({"user": {"tel_user": user.tel_user, "nom_user": user.nom_user, "email_user": user.email_user}}), 200
-
+    user = request.user  # Récupération de l'utilisateur authentifié via le middleware
+    return UserService.get_user_profile(user)
 @auth_required
 def deconnexion():
-    token = request.cookies.get('token')
-    if token:
-        blacklist_token = BlacklistToken(token=token)
-        db.session.add(blacklist_token)
-        db.session.commit()
-
-    response = make_response(jsonify({"message": "Déconnexion réussie"}))
-    response.delete_cookie('token')
-    return response
+    return UserService.logout()

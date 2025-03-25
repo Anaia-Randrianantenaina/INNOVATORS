@@ -1,9 +1,12 @@
 import React from 'react'
+import NavBar from './NavBar'
+import Menu from '../menu/Menu'
 
 const Navigation = () => {
   return (
-    <div>
-      
+    <div className='bg-gray-100 flex'> 
+        <NavBar/>
+        <Menu/>
     </div>
   )
 }

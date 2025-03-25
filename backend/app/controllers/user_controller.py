@@ -1,85 +1,37 @@
-from flask import Blueprint, request, jsonify, make_response
+from flask import request, jsonify, make_response
 from app.services.user_service import UserService
-from werkzeug.exceptions import BadRequest
-from flask_jwt_extended import jwt_required, get_jwt_identity
+from app.middleware.access_token import auth_required
+from app.models.black_liste_token import BlacklistToken
+from app import db
 
-user_bp = Blueprint('user_bp', __name__)
-
-@user_bp.route('/create_user', methods=['POST'])
 def register():
-    try:
-        data = request.get_json()
-        photo = data['photo']
-        nom_user = data['nom_user']
-        email_user = data['email_user']
-        role_user = data['role_user']
-        mot_de_passe = data['mot_de_passe']
-        tel_user = data['tel_user']
+    data = request.get_json()
+    user = UserService.register_user(data['photo'], data['nom_user'], data['email_user'], data['role_user'], data['mot_de_passe'], data['tel_user'])
+    return jsonify({"message": "Utilisateur créé", "user": user.tel_user}), 201
 
-        # Enregistrer l'utilisateur
-        user = UserService.register_user(photo, nom_user, email_user, role_user, mot_de_passe, tel_user)
-        return jsonify({
-            "message": "User creer successfully",
-            "user": {
-                "id": user.id,
-                "nom_user": user.nom_user,
-                "email_user": user.email_user,
-                "role_user": user.role_user,
-            }
-        }), 201
+def connexion():
+    data = request.get_json()
+    tokens, error = UserService.connexion_user(data['tel_user'], data['mot_de_passe'])
+    if error:
+        return jsonify({"error": error}), 400
 
-    except KeyError as e:
-        return jsonify({"error": f"Missing parameter: {str(e)}"}), 400
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
+    response = make_response(jsonify({"message": "Connexion réussie", "user": data['tel_user']}))
+    response.set_cookie('token', tokens['access_token'], httponly=True, secure=True, samesite='Strict', max_age=2592000)
+    return response
 
-
-@user_bp.route('/login', methods=['POST'])
-def login():
-    try:
-        data = request.get_json()
-        email_user = data['email_user']
-        mot_de_passe = data['mot_de_passe']
-
-        # Vérifier les identifiants
-        user = UserService.check_user_credentials(email_user, mot_de_passe)
-        if user:
-            # Créer un token JWT pour l'utilisateur
-            access_token = UserService.create_token(user)
-
-            # Créer la réponse et définir le cookie
-            response = make_response(jsonify({
-                "message": "Login successful",
-                "access_token": access_token,  # Ajout du token ici
-                "user": {
-                    "id": user.id,
-                    "nom_user": user.nom_user,
-                    "email_user": user.email_user
-                }
-            }), 200)
-
-
-            # Ajouter le token dans un cookie sécurisé
-            response.set_cookie('access_token', access_token, httponly=True, secure=True, samesite='Strict')
-            return response
-        else:
-            return jsonify({"error": "Invalid credentials"}), 401
-
-    except KeyError as e:
-        return jsonify({"error": f"Missing parameter: {str(e)}"}), 400
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
-
-@user_bp.route('/profile', methods=['GET'])
-@jwt_required()
+@auth_required
 def profile():
-    current_user = get_jwt_identity()
-    user = User.query.get(current_user)
-    if user:
-        return jsonify({
-            "id": user.id,
-            "nom_user": user.nom_user,
-            "email_user": user.email_user,
-            "role_user": user.role_user
-        }), 200
-    return jsonify({"error": "User not found"}), 404
+    user = request.user
+    return jsonify({"user": {"tel_user": user.tel_user, "nom_user": user.nom_user, "email_user": user.email_user}}), 200
+
+@auth_required
+def deconnexion():
+    token = request.cookies.get('token')
+    if token:
+        blacklist_token = BlacklistToken(token=token)
+        db.session.add(blacklist_token)
+        db.session.commit()
+
+    response = make_response(jsonify({"message": "Déconnexion réussie"}))
+    response.delete_cookie('token')
+    return response

@@ -41,6 +41,52 @@ def connexion():
 def profile():
     user = request.user  # Récupération de l'utilisateur authentifié via le middleware
     return UserService.get_user_profile(user)
+
 @auth_required
 def deconnexion():
     return UserService.logout()
+
+def demander_reset_mot_de_passe():
+    """Contrôleur pour demander un code OTP de réinitialisation."""
+    try:
+        data = request.get_json()
+        tel_user = data.get("tel_user")
+
+        if not tel_user:
+            return jsonify({"error": "Le numéro de téléphone est requis."}), 400
+
+        otp, error = UserService.generer_reset_mot_de_passe(tel_user)
+        if error:
+            return jsonify({"error": error}), 404
+
+        print(f"Envoyer OTP {otp} au numéro {tel_user}")
+        return jsonify({"message": "Un code de vérification a été envoyé."}), 200
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+def reset_mot_de_passe():
+    """Contrôleur pour vérifier le code OTP et réinitialiser le mot de passe."""
+    try:
+        data = request.get_json()
+        tel_user = data.get("tel_user")
+        otp = data.get("otp")
+        nouveau_mot_de_passe = data.get("mot_de_passe")
+        confirmation_nouveau_mot_de_passe = data.get("confirmation_nouveau_mot_de_passe")
+
+        if not all([tel_user, otp, nouveau_mot_de_passe, confirmation_nouveau_mot_de_passe]):
+            return jsonify({"error": "Tous les champs sont requis."}), 400
+
+        if nouveau_mot_de_passe != confirmation_nouveau_mot_de_passe:
+            return jsonify({"error": "Les mots de passe ne correspondent pas."}), 400
+
+        # Correction : Appel de la méthode UserService au lieu de la fonction elle-même
+        error = UserService.reset_mot_de_passe(tel_user, otp, nouveau_mot_de_passe)
+        if error:
+            return jsonify({"error": error}), 400
+
+        return jsonify({"message": "Mot de passe réinitialisé avec succès."}), 200
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500

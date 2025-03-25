@@ -103,12 +103,13 @@ function NavBar(props) {
           </Box>
           {/*  ---------------------------------Contenu qui contient le notification et nom utilisateur --------------------------------- */}
           <Box className="ml-auto flex">
-            <p className="text-3xl flex">
+            <p className="text-3xl flex me-3">
               <Badge badgeContent={2} max={10} color="error" className="mt-1 me-5">
-                <IoIosNotifications />
+                <IoIosNotifications className="cursor-pointer" />
               </Badge> | 
             </p>
-            <Chip avatar={<Avatar />} label="anarana" className="mt-1" />
+            <Avatar className="w-[100px] h-[100px] cursor-pointer" />
+            <Chip label="anarana" className="mt-1" />
           </Box>
         </Toolbar>
       </AppBar>

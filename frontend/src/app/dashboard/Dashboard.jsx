@@ -1,10 +1,11 @@
+import { Box } from '@mui/material'
 import React from 'react'
 
 const Dashboard = () => {
   return (
-    <div className='w-[88%] ml-auto'>
+    <Box className='w-[77rem] h-[40.5rem] ml-auto'>
       <h1>Dashboard page</h1>
-    </div>
+    </Box>
   )
 }
 

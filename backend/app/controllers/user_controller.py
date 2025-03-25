@@ -1,85 +1,92 @@
-from flask import Blueprint, request, jsonify, make_response
+from flask import request, jsonify, make_response
 from app.services.user_service import UserService
-from werkzeug.exceptions import BadRequest
-from flask_jwt_extended import jwt_required, get_jwt_identity
+from app.middleware.access_token import auth_required
 
-user_bp = Blueprint('user_bp', __name__)
-
-@user_bp.route('/create_user', methods=['POST'])
 def register():
-    try:
-        data = request.get_json()
-        photo = data['photo']
-        nom_user = data['nom_user']
-        email_user = data['email_user']
-        role_user = data['role_user']
-        mot_de_passe = data['mot_de_passe']
-        tel_user = data['tel_user']
+    """Inscription d'un nouvel utilisateur avec confirmation du mot de passe."""
+    data = request.get_json()
 
-        # Enregistrer l'utilisateur
-        user = UserService.register_user(photo, nom_user, email_user, role_user, mot_de_passe, tel_user)
-        return jsonify({
-            "message": "User creer successfully",
-            "user": {
-                "id": user.id,
-                "nom_user": user.nom_user,
-                "email_user": user.email_user,
-                "role_user": user.role_user,
-            }
-        }), 201
+    photo = data.get('photo')
+    nom_user = data.get('nom_user')
+    email_user = data.get('email_user')
+    role_user = data.get('role_user')
+    mot_de_passe = data.get('mot_de_passe')
+    confirmation_mot_de_passe = data.get('confirmation_mot_de_passe')
+    tel_user = data.get('tel_user')
 
-    except KeyError as e:
-        return jsonify({"error": f"Missing parameter: {str(e)}"}), 400
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
+    # Vérification des champs obligatoires
+    if not all([nom_user, email_user, role_user, mot_de_passe, confirmation_mot_de_passe, tel_user]):
+        return jsonify({"message": "Tous les champs sont obligatoires."}), 400
+
+    # Inscription de l'utilisateur
+    user, error = UserService.register_user(photo, nom_user, email_user, role_user, mot_de_passe, confirmation_mot_de_passe, tel_user)
+
+    if error:
+        return jsonify({"message": error}), 400
+
+    return jsonify({"message": "Utilisateur créé avec succès."}), 201
 
 
-@user_bp.route('/login', methods=['POST'])
-def login():
-    try:
-        data = request.get_json()
-        email_user = data['email_user']
-        mot_de_passe = data['mot_de_passe']
+def connexion():
+    data = request.get_json()
+    tokens, error = UserService.connexion_user(data['tel_user'], data['mot_de_passe'])
+    if error:
+        return jsonify({"error": error}), 400
 
-        # Vérifier les identifiants
-        user = UserService.check_user_credentials(email_user, mot_de_passe)
-        if user:
-            # Créer un token JWT pour l'utilisateur
-            access_token = UserService.create_token(user)
+    response = make_response(jsonify({"message": "Connexion réussie", "user": data['tel_user']}))
+    response.set_cookie('token', tokens['access_token'], httponly=True, secure=True, samesite='Strict', max_age=2592000)
+    return response
 
-            # Créer la réponse et définir le cookie
-            response = make_response(jsonify({
-                "message": "Login successful",
-                "access_token": access_token,  # Ajout du token ici
-                "user": {
-                    "id": user.id,
-                    "nom_user": user.nom_user,
-                    "email_user": user.email_user
-                }
-            }), 200)
-
-
-            # Ajouter le token dans un cookie sécurisé
-            response.set_cookie('access_token', access_token, httponly=True, secure=True, samesite='Strict')
-            return response
-        else:
-            return jsonify({"error": "Invalid credentials"}), 401
-
-    except KeyError as e:
-        return jsonify({"error": f"Missing parameter: {str(e)}"}), 400
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
-
-@user_bp.route('/profile', methods=['GET'])
-@jwt_required()
+@auth_required
 def profile():
-    current_user = get_jwt_identity()
-    user = User.query.get(current_user)
-    if user:
-        return jsonify({
-            "id": user.id,
-            "nom_user": user.nom_user,
-            "email_user": user.email_user,
-            "role_user": user.role_user
-        }), 200
-    return jsonify({"error": "User not found"}), 404
+    user = request.user  # Récupération de l'utilisateur authentifié via le middleware
+    return UserService.get_user_profile(user)
+
+@auth_required
+def deconnexion():
+    return UserService.logout()
+
+def demander_reset_mot_de_passe():
+    """Contrôleur pour demander un code OTP de réinitialisation."""
+    try:
+        data = request.get_json()
+        tel_user = data.get("tel_user")
+
+        if not tel_user:
+            return jsonify({"error": "Le numéro de téléphone est requis."}), 400
+
+        otp, error = UserService.generer_reset_mot_de_passe(tel_user)
+        if error:
+            return jsonify({"error": error}), 404
+
+        print(f"Envoyer OTP {otp} au numéro {tel_user}")
+        return jsonify({"message": "Un code de vérification a été envoyé."}), 200
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+def reset_mot_de_passe():
+    """Contrôleur pour vérifier le code OTP et réinitialiser le mot de passe."""
+    try:
+        data = request.get_json()
+        tel_user = data.get("tel_user")
+        otp = data.get("otp")
+        nouveau_mot_de_passe = data.get("mot_de_passe")
+        confirmation_nouveau_mot_de_passe = data.get("confirmation_nouveau_mot_de_passe")
+
+        if not all([tel_user, otp, nouveau_mot_de_passe, confirmation_nouveau_mot_de_passe]):
+            return jsonify({"error": "Tous les champs sont requis."}), 400
+
+        if nouveau_mot_de_passe != confirmation_nouveau_mot_de_passe:
+            return jsonify({"error": "Les mots de passe ne correspondent pas."}), 400
+
+        # Correction : Appel de la méthode UserService au lieu de la fonction elle-même
+        error = UserService.reset_mot_de_passe(tel_user, otp, nouveau_mot_de_passe)
+        if error:
+            return jsonify({"error": error}), 400
+
+        return jsonify({"message": "Mot de passe réinitialisé avec succès."}), 200
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500

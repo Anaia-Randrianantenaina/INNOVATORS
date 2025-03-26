@@ -14,6 +14,9 @@ def create_app():
     app.config.from_object(Config)
     jwt = JWTManager(app)
 
+    # Importer les modèles après l'initialisation de db
+    
+
     # Initialisation de la base de données et de Flask-Migrate
     db.init_app(app)
     migrate.init_app(app, db)
@@ -25,5 +28,7 @@ def create_app():
     app.register_blueprint(demande_bp, url_prefix='/demande')
     from app.routes.validation_routes import validation_bp
     app.register_blueprint(validation_bp, url_prefix='/validation')
+    from app.routes.article_routes import article_bp
+    app.register_blueprint(article_bp, url_prefix='/article')
 
     return app

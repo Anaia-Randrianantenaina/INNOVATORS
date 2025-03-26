@@ -1,12 +1,17 @@
+<!-- Version requise : -->
+installation python version 3.12
 <!-- Créer un environnement virtuel -->
 python -m venv venv
 <!-- activation venv sur  -->
 sur lunix ou Mac:source venv/bin/activate
 Sur Windows: venv\Scripts\activate
-<!-- lancement du projet  -->
+<!-- lancement du projet  --> 
+
 flask run ou python app.py
 <!-- Ajoute les dépendances dans un fichier  -->
 requirements.txt
+<!-- apres clone il faut reinstaller le dependance -->
+pip install -r requirements.txt
 <!-- Ajoute les dépendances dans un fichier requirements.txt -->
 echo flask > requirements.txt
 echo flask-sqlalchemy >> requirements.txt
@@ -23,3 +28,4 @@ configuration .env{
     DATABASE_URL=votre base de donne
 }
 
+blblblblblbb

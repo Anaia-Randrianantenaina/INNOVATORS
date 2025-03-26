@@ -25,17 +25,7 @@ class UserService:
             return None, "Les mots de passe ne correspondent pas."
 
         # Hachage du mot de passe
-        hashed_password = bcrypt.hashpw(mot_de_passe.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
-
-        # Création de l'utilisateur
-        user = User(
-            photo=photo,
-            nom_user=nom_user,
-            email_user=email_user,
-            role_user=role_user,
-            tel_user=tel_user,
-            mot_de_passe=hashed_password
-        )
+        user = User(photo, nom_user, email_user, role_user, mot_de_passe, tel_user)
 
         db.session.add(user)
         db.session.commit()
@@ -47,7 +37,7 @@ class UserService:
         user = User.query.filter_by(tel_user=tel_user).first()
         
         # Vérification du mot de passe
-        if not user or not check_password_hash(user.mot_de_passe, mot_de_passe):
+        if not user or not user.check_password(mot_de_passe):
             return None, "Identifiants incorrects."
 
         # Création des tokens d'authentification

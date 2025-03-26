@@ -16,6 +16,7 @@
     "@mui/material": "^6.4.8",
     "@mui/styled-engine-sc": "^6.4.6",
     "@toolpad/core": "^0.13.0",
+    "antd": "^5.24.5",
     "axios": "^1.8.4",
     "react": "^19.0.0",
     "react-data-table-component": "^7.7.0",

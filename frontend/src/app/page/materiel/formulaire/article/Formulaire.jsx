@@ -9,7 +9,7 @@ const Formulaire = () => {
     // variable des éléments form
     const corps = (
      <Form>
-        <div className="grid grid-cols-2 gap-0 mt-10">
+        <div className="grid grid-cols-2 gap-0 mt-5">
          <Form.Item name="nom" rules={[{ required: true, message: "Veuillez remplir le nom !" }]}>
           <TextField className='mt-5' label="Nom" variant='outlined'/>
          </Form.Item>

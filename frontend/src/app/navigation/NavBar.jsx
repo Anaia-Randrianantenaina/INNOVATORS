@@ -1,6 +1,5 @@
 import { FaUserAlt } from "react-icons/fa"; 
 import { AiFillCheckCircle } from "react-icons/ai"; 
-import { BiAnalyse } from "react-icons/bi"; 
 import { MdDeliveryDining } from "react-icons/md"; 
 import { FaHistory } from "react-icons/fa"; 
 import { RiChatFollowUpFill } from "react-icons/ri"; 
@@ -35,7 +34,7 @@ const NavBar = ({children}) => {
 
   // Contenu du menu de navigation (Drawer et Sidebar)
   const NavContent = (
-    <Box className="w-[250px] h-full lg:h-[100vh] xl:h-[100vh] bg-white">
+    <Box className="w-[250px] h-full bg-white">
       {/* ----------------------------------Contenu qui contient le logo------------------------------ */}
       <Box className="mt-4">
         <div className="flex justify-center me-10">
@@ -61,9 +60,9 @@ const NavBar = ({children}) => {
   );
 
   return (
-    <>
+    <Box className="flex h-screen">
       {/* ----------------------------------Bouton pour ouvrir le Drawer en mode mobile (sm & md)---------------------------------- */}
-      <Box className="sm:block md:block lg:hidden xl:hidden">
+      <Box className="absolute top-4 left-4 sm:block md:block lg:hidden xl:hidden">
         <IconButton onClick={toggleDrawer(true)}>
           <MenuIcon />
         </IconButton>
@@ -75,18 +74,21 @@ const NavBar = ({children}) => {
         open={open}
         onClose={toggleDrawer(false)}
         className="sm:block md:block lg:hidden xl:hidden"
-        sx={{ height: '100vh', width: '250px' }}
+        sx={{ width: '250px' }}
       >
         {NavContent}
       </Drawer>
 
       {/* ----------------------------------Sidebar en mode desktop (lg & xl)---------------------------------- */}
-      <Box className="w-[250px] h-[100vh] shadow-lg hidden sm:hidden md:hidden lg:block xl:block bg-white">
+      <Box className="w-[250px] h-screen fixed left-0 top-0 shadow-lg hidden sm:hidden md:hidden lg:block xl:block bg-white">
         {NavContent}
       </Box>
 
-      <main>{children}</main>
-    </>
+      {/* ----------------------------------Contenu principal---------------------------------- */}
+      <Box className="flex-1 ml-[250px] overflow-hidden">
+        <main className="h-full p-4">{children}</main>
+      </Box>
+    </Box>
   );
 }
 

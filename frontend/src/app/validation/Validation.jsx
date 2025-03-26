@@ -1,10 +1,11 @@
+import { Box } from '@mui/material'
 import React from 'react'
 
 const Validation = () => {
   return (
-    <div className='w-[77rem] h-[40.5rem] ml-auto'>
+    <Box className='flex-1 p-4'>
       <h1>Validation page</h1>
-    </div>
+    </Box>
   )
 }
 

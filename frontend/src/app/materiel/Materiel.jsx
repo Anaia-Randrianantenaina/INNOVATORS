@@ -1,5 +1,6 @@
-import { Box } from '@mui/material'
+import { Box, MenuItem, Select } from '@mui/material'
 import React from 'react'
+import Bouton from '../bouton/Bouton'
 
 const Materiel = () => {
   
@@ -9,11 +10,13 @@ const Materiel = () => {
       <h1 className="font-bold text-xl">MATERIELS</h1>
       {/* ------------------------------------Contenu 1------------------------------------ */}
       <Box className="flex">
-        <div className='w-[13%]'>
-
+        <div className="w-[500px]">
+          <Bouton label="Nouveau"/>
         </div>
-        <div>
-
+        <div className='ml-auto'>
+          <Select>
+            <MenuItem>Janvier</MenuItem>
+          </Select>
         </div>
       </Box>
       {/* ------------------------------------Contenu 1------------------------------------ */}

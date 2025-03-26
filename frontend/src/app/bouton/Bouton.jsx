@@ -1,15 +1,15 @@
 import { Button } from "@mui/material";
 import React from "react";
 
-const Bouton = ({label}) => {
+const Bouton = ({label, boutonStyle}) => {
   return (
     <div>
       <Button
         sx={{
           background: "#0076A8",
-          width: "13%",
           color: "white",
           textTransform: "none",
+          ...boutonStyle
         }}
       >
         {label}

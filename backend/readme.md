@@ -1,9 +1,12 @@
+<!-- Version requise : -->
+installation python version 3.12
 <!-- Créer un environnement virtuel -->
 python -m venv venv
 <!-- activation venv sur  -->
 sur lunix ou Mac:source venv/bin/activate
 Sur Windows: venv\Scripts\activate
-<!-- lancement du projet  -->
+<!-- lancement du projet  --> 
+
 flask run ou python app.py
 <!-- Ajoute les dépendances dans un fichier  -->
 requirements.txt

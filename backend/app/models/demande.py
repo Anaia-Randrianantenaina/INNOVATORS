@@ -4,6 +4,7 @@ from datetime import datetime
 class Demande(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     tel_user = db.Column(db.String(100), db.ForeignKey('user.tel_user'), nullable=False)  # Relation avec le modèle User
+    id_article = db.Column(db.Integer, db.ForeignKey('article.id'), nullable=False) # Relation avec le modèle Article
     status_demande = db.Column(db.String(50), nullable=False,default='en attente')
     justification_demande = db.Column(db.Text, nullable=False)
     quantite_demande = db.Column(db.String(100), nullable=False)
@@ -12,9 +13,11 @@ class Demande(db.Model):
 
     # Définir les relations avec les autres tables
     user = db.relationship('User', backref='demandes', lazy=True)  # Relation inverse avec User
+    article = db.relationship('Article', backref='demandes', lazy=True) # Relation inverse avec Article
 
-    def __init__(self, tel_user, status_demande, justification_demande, quantite_demande, notification_demande, date_demande=None):
+    def __init__(self, tel_user, id_article, status_demande, justification_demande, quantite_demande, notification_demande, date_demande=None):
         self.tel_user = tel_user
+        self.id_article = id_article
         self.status_demande = status_demande
         self.justification_demande = justification_demande
         self.quantite_demande = quantite_demande

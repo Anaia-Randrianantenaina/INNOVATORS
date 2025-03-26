@@ -1,12 +1,26 @@
 from app.models.demande import Demande
 from app.models.user import User
+from flask import request
 from app import db
 from app.models.notification import Notification
 
 class DemandeService:
     @staticmethod
-    def ajoute_demande(tel_user, justification, quantite):
+    def ajoute_demande(justification, quantite):
         """Créer une nouvelle demande et notifier le logistique"""
+        
+        # Utiliser le tel_user de l'utilisateur connecté
+        tel_user = request.user.tel_user
+
+        # Vérifier si l'utilisateur est un demandeur ou un logistique
+        utilisateur = User.query.filter_by(tel_user=tel_user).first()
+
+        if not utilisateur:
+            return {"message": "Utilisateur non trouvé"}, 404
+        
+        if utilisateur.role_user not in ["demandeur", "logistique"]:
+            return {"message": "Accès refusé, vous n'êtes pas autorisé à faire une demande"}, 403
+        
         nouvelle_demande = Demande(
             tel_user=tel_user,
             status_demande="en attente",
@@ -28,8 +42,8 @@ class DemandeService:
             )
             db.session.add(notification_logistique)
         
-            # Commit toutes les notifications en même temps
-            db.session.commit()
+        # Commit toutes les notifications en même temps
+        db.session.commit()
 
         # Notifier le demandeur
         notification_demandeur = Notification(
@@ -42,6 +56,7 @@ class DemandeService:
         db.session.commit()
 
         return nouvelle_demande
+
 
     @staticmethod
     def obtenir_toutes_les_demandes():

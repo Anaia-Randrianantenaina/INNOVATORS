@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box, Card, CardContent } from '@mui/material';
 import React from 'react';
 import DataTable from '../datatable/DataTable';
 
@@ -27,7 +27,33 @@ const rows = [
 const Demande = () => {
   return (
     <Box className="flex-1 p-4 space-y-10">
-      <h1>Demande page</h1>
+
+     <h1 className=' mt-[-2%] text-[30px] '>Demandes</h1>
+
+      {/* PETIT DASHBOARD */}
+     <div className='flex justify-center  gap-14 grid-cols-1'>
+      <Card className='w-[350px] h-[120px]'> 
+        <CardContent></CardContent>
+      </Card>
+
+        <Card className='w-[350px] h-[120px]'> 
+          <CardContent></CardContent>
+        </Card>
+
+        <Card className='w-[350px] h-[120px]'> 
+          <CardContent></CardContent>
+        </Card>
+
+        <Card className='w-[350px] h-[120px]'> 
+          <CardContent></CardContent>
+        </Card>
+     </div>
+
+     {/* BOUTTON */}
+     <div className='w-[100px] h-[100px] bg-white'>
+
+     </div>
+
       <DataTable columns={columns} rows={rows} pageSize={5} />
     </Box>
   );

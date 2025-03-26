@@ -47,7 +47,7 @@ const NavBar = ({children}) => {
         {navigation.map((nav, id) => (
           <ListItem key={id} sx={{ p: 0 }}>
             <NavLink to={nav.path} activeClassName="active" className="w-full">
-              <ListItemButton sx={{ '&:hover': { borderRadius: "5px" } }}>
+              <ListItemButton onClick={toggleDrawer(false)} sx={{ '&:hover': { borderRadius: "5px" } }}>
                 <ListItemIcon className="ml-4">
                   {nav.icon}
                 </ListItemIcon>
@@ -62,14 +62,14 @@ const NavBar = ({children}) => {
 
   return (
     <>
-      {/* Bouton pour ouvrir le Drawer en mode mobile (sm & md) */}
+      {/* ----------------------------------Bouton pour ouvrir le Drawer en mode mobile (sm & md)---------------------------------- */}
       <Box className="sm:block md:block lg:hidden xl:hidden">
         <IconButton onClick={toggleDrawer(true)}>
           <MenuIcon />
         </IconButton>
       </Box>
 
-      {/* Drawer pour sm & md */}
+      {/* ----------------------------------Drawer pour sm & md---------------------------------- */}
       <Drawer
         anchor="left"
         open={open}
@@ -80,7 +80,7 @@ const NavBar = ({children}) => {
         {NavContent}
       </Drawer>
 
-      {/* Sidebar en mode desktop (lg & xl) */}
+      {/* ----------------------------------Sidebar en mode desktop (lg & xl)---------------------------------- */}
       <Box className="w-[250px] h-[100vh] shadow-lg hidden sm:hidden md:hidden lg:block xl:block bg-white">
         {NavContent}
       </Box>

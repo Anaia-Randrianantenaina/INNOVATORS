@@ -33,7 +33,7 @@ def signer_validation():
     if not data or 'id' not in data or 'signature_responsable' not in data:
         return jsonify({"message": "Données invalides"}), 400
 
-    validation = ValidationService.signer_validation(
+    validation = ValidationService.signer_demande(
         data['id'], data['signature_responsable']
     )
 

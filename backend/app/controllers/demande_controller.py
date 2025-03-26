@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 from app.services.demande_service import DemandeService
-
+from app.middleware.access_token import auth_required
 def creer_demande():
     """Créer une nouvelle demande"""
 
@@ -28,3 +28,19 @@ def obtenir_toutes_les_demandes():
         for demande in demandes
     ]
     return jsonify(demandes_list), 200
+
+@auth_required
+def get_demandeEtNotification():
+    """ Récupérer le profil de l'utilisateur, y compris ses demandes et notifications """
+    user_tel = request.user.tel_user  # Utilise l'utilisateur authentifié
+
+    # Utilisation du service pour récupérer les demandes et notifications
+    demandes_data, notifications_data = DemandeService.get_demandes_and_notifications(user_tel)
+
+    # Retourner les données formatées
+    return jsonify({
+        "demandeur": {
+            "demandes": demandes_data,
+            "notifications": notifications_data
+        }
+    })

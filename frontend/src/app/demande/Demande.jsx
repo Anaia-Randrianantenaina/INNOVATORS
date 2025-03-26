@@ -1,7 +1,7 @@
 import { Box, Card, CardContent } from '@mui/material';
 import React from 'react';
 import DataTable from '../datatable/DataTable';
-
+import Bouton from '../bouton/Bouton';
 // DÉFINITION COLONNE
 const columns = [
   { field: 'id', headerName: 'ID', width: 70 },
@@ -17,12 +17,9 @@ const rows = [
   { id: 2, name: 'Jean', email: 'jean@gmail.com', telephone: '0340022233', role: 'Technicien' },
   { id: 3, name: 'Paul', email: 'paul@gmail.com', telephone: '0340033344', role: 'Manager' },
   { id: 4, name: 'Sophie', email: 'sophie@gmail.com', telephone: '0340044455', role: 'Assistante RH' },
-  { id: 5, name: 'Luc', email: 'luc@gmail.com', telephone: '0340055566', role: 'Développeur' },
-  { id: 6, name: 'George', email: 'luc@gmail.com', telephone: '0340055566', role: 'Développeur' },
-  { id: 7, name: 'Anthonio', email: 'luc@gmail.com', telephone: '0340055566', role: 'Développeur' },
-  { id: 8, name: 'Mickael', email: 'luc@gmail.com', telephone: '0340055566', role: 'Développeur' },
-  { id: 9, name: 'AUrélien', email: 'luc@gmail.com', telephone: '0340055566', role: 'Développeur' },
+  { id: 5, name: 'Sophie', email: 'sophie@gmail.com', telephone: '0340044455', role: 'RH' },
 ];
+
 
 const Demande = () => {
   return (
@@ -50,8 +47,13 @@ const Demande = () => {
      </div>
 
      {/* BOUTTON */}
-     <div className='w-[100px] h-[100px] bg-white'>
-
+     <div className='flex justify-between'>
+      <div className='flex'>
+      <Bouton label="Nouveau"className/>
+       <Bouton label="Nouveau"className/>
+       <Bouton label="Nouveau"className/>
+      </div>
+       <Bouton label="Nouveau"/>
      </div>
 
       <DataTable columns={columns} rows={rows} pageSize={5} />

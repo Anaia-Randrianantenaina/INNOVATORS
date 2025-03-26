@@ -5,9 +5,9 @@ import Paper from '@mui/material/Paper';
 const paginationModel = { page: 0, pageSize: 5 };
 
 // POUR QUE LES COMPOSANT ROWS ET COLUMNS SOIT RÉUTILISABLES 
-export default function DataTable({ rows, columns }) {
+export default function DataTable({ rows, columns, style}) {
   return (
-    <Paper sx={{ height: 480, width: '100%'}}>
+    <Paper sx={{ height: 480, width: '100%', ...style}}>
       <DataGrid
         rows={rows}
         columns={columns}

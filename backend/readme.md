@@ -7,6 +7,8 @@ Sur Windows: venv\Scripts\activate
 flask run ou python app.py
 <!-- Ajoute les dépendances dans un fichier  -->
 requirements.txt
+<!-- apres clone il faut reinstaller le dependance -->
+pip install -r requirements.txt
 <!-- Ajoute les dépendances dans un fichier requirements.txt -->
 echo flask > requirements.txt
 echo flask-sqlalchemy >> requirements.txt

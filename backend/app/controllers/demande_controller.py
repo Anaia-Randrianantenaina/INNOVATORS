@@ -1,18 +1,24 @@
 from flask import Blueprint, request, jsonify
 from app.services.demande_service import DemandeService
 from app.middleware.access_token import auth_required
+
+@auth_required
 def creer_demande():
     """Créer une nouvelle demande"""
 
     data = request.get_json()
-    if not data or 'tel_user' not in data or 'justification' not in data or 'quantite' not in data:
+    if not data or 'justification' not in data or 'quantite' not in data:
         return jsonify({"message": "Données invalides"}), 400
 
-    demande = DemandeService.ajoute_demande(
-        data['tel_user'], data['justification'], data['quantite']
+    # Appel du service pour ajouter la demande
+    response = DemandeService.ajoute_demande(
+        data['justification'], data['quantite']
     )
 
-    return jsonify({"message": "Demande créée avec succès", "demande": demande.id}), 201
+    if isinstance(response, tuple):  # Si le retour est un message d'erreur
+        return jsonify(response[0]), response[1]
+
+    return jsonify({"message": "Demande créée avec succès", "demande": response.id}), 201
 
 def obtenir_toutes_les_demandes():
     """Obtenir toutes les demandes"""

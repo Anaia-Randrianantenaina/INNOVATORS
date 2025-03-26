@@ -2,8 +2,8 @@ import { BsPencilSquare } from "react-icons/bs";
 import { CgAdd } from "react-icons/cg"; 
 import { Box, MenuItem, Tooltip } from '@mui/material'
 import React from 'react'
-import Bouton from '../bouton/Bouton'
-import DataTable from "../datatable/DataTable";
+import Bouton from '../../composant/bouton/Bouton'
+import DataTable from "../../composant/datatable/DataTable";
 import { Input, Select } from 'antd';
 const { Search } = Input;
 

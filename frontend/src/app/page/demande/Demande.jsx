@@ -1,6 +1,6 @@
 import { Box, Card, CardContent } from '@mui/material';
 import React from 'react';
-import DataTable from '../datatable/DataTable';
+import DataTable from '../../composant/datatable/DataTable';
 
 // DÉFINITION COLONNE
 const columns = [

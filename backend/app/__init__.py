@@ -30,5 +30,7 @@ def create_app():
     app.register_blueprint(validation_bp, url_prefix='/validation')
     from app.routes.article_routes import article_bp
     app.register_blueprint(article_bp, url_prefix='/article')
+    from app.routes.budget_routes import budget_bp
+    app.register_blueprint(budget_bp, url_prefix='/budget')
 
     return app

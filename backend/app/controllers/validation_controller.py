@@ -1,19 +1,20 @@
 from flask import Blueprint, request, jsonify
 from app.services.validation_service import ValidationService
 
-
 def valider_demande():
     """Valider une demande"""
     data = request.get_json()
+    
+    # Vérification des données d'entrée
     if not data or 'id_demande' not in data or 'tel_user_logistique' not in data:
         return jsonify({"message": "Données invalides"}), 400
 
-    validation = ValidationService.valider_demande(
+    # Appel du service de validation
+    response, status_code = ValidationService.valider_demande(
         data['id_demande'], data['tel_user_logistique']
     )
 
-    return jsonify({"message": "Demande validée avec succès", "validation": validation.id_demande}), 200
-
+    return jsonify(response), status_code
 
 def refuser_demande():
     """Refuser une demande"""
@@ -25,7 +26,7 @@ def refuser_demande():
         data['id_demande'], data['tel_user_logistique']
     )
 
-    return jsonify({"message": "Demande refusée", "validation": validation.id_demande}), 200
+    return jsonify({"message": "Demande refusée"}), 200
 
 def signer_validation():
     """Signer une validation par le responsable"""

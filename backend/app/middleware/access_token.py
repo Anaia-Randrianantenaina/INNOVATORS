@@ -3,10 +3,13 @@ from functools import wraps
 from flask import request, jsonify
 from app.models.black_liste_token import BlacklistToken
 from app.models.user import User
+from app.models.demande import Demande
+from app.models.notification import Notification
 from werkzeug.exceptions import Unauthorized
 from config import Config
 
 SECRET_KEY = Config.JWT_SECRET_KEY
+
 def auth_required(f):
     """ Middleware pour protéger les routes avec JWT """
     @wraps(f)
@@ -27,7 +30,7 @@ def auth_required(f):
             decoded = jwt.decode(token, SECRET_KEY, algorithms=["HS256"])
             print(f"Token décodé : {decoded}")  # Log pour vérifier le décodage
 
-            # Utilise 'sub' 
+            # Utiliser 'sub'
             if not decoded.get('sub'):
                 return jsonify({"error": "Données du token invalides"}), 401
 
@@ -36,7 +39,16 @@ def auth_required(f):
             if not user:
                 return jsonify({"error": "Utilisateur non trouvé"}), 401
 
+            # Attacher l'utilisateur à la requête
             request.user = user
+
+            # Récupérer les demandes et notifications de l'utilisateur
+            demandes = Demande.query.filter_by(tel_user=user.tel_user).all()
+            notifications = Notification.query.filter_by(tel_user=user.tel_user).all()
+
+            # Attacher les demandes et notifications à la requête
+            request.demandes = demandes
+            request.notifications = notifications
 
         except jwt.ExpiredSignatureError:
             return jsonify({"error": "Token expiré"}), 403
@@ -47,4 +59,3 @@ def auth_required(f):
         return f(*args, **kwargs)
 
     return decorated_function
-

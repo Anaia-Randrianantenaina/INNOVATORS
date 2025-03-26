@@ -21,5 +21,9 @@ def create_app():
     # Importer les routes après l'initialisation de l'app
     from app.routes.user_routes import user_bp
     app.register_blueprint(user_bp, url_prefix='/users')
+    from app.routes.demande_routes import demande_bp
+    app.register_blueprint(demande_bp, url_prefix='/demande')
+    from app.routes.validation_routes import validation_bp
+    app.register_blueprint(validation_bp, url_prefix='/validation')
 
     return app

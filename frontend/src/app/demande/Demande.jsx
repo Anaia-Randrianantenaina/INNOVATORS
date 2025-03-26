@@ -17,7 +17,6 @@ const rows = [
   { id: 2, name: 'Jean', email: 'jean@gmail.com', telephone: '0340022233', role: 'Technicien' },
   { id: 3, name: 'Paul', email: 'paul@gmail.com', telephone: '0340033344', role: 'Manager' },
   { id: 4, name: 'Sophie', email: 'sophie@gmail.com', telephone: '0340044455', role: 'Assistante RH' },
-  { id: 5, name: 'Sophie', email: 'sophie@gmail.com', telephone: '0340044455', role: 'RH' },
 ];
 
 

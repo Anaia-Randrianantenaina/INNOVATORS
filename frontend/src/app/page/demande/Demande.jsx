@@ -73,7 +73,7 @@ const Demande = () => {
             "Filtrer par rôle",
             "Filtrer par date"
           ].map((label, index) => (
-            <FormControl key={index} className="w-[150px]" sx={{ height: '20px' }}>
+            <FormControl key={index} className="w-[150px]" sx={{ height: '0px' }}>
               <InputLabel>{label}</InputLabel>
               <Select value={selection} onChange={(e) => setSelection(e.target.value)}>
                 <MenuItem value="option1">Option 1</MenuItem>

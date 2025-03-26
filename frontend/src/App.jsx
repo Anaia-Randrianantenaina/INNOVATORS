@@ -1,17 +1,17 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Navigation from './app/navigation/Navigation';
-import Dashboard from './app/dashboard/Dashboard';
-import Menu from './app/menu/Menu';
-import Materiel from './app/materiel/Materiel';
-import Demande from "./app/demande/Demande"
-import Suivi from "./app/suivi/Suivi"
-import User from "./app/utilisateur/User"
-import Livraison from "./app/livraison/Livraison"
-import Validation from "./app/validation/Validation"
-import Info from "./app/information/Info"
-import Analyse from "./app/analyse/Analyse"
-import Historique from './app/historique/Historique';
+import Dashboard from './app/page/dashboard/Dashboard';
+import Materiel from './app/page/materiel/Materiel';
+import Demande from './app/page/demande/Demande';
+import Suivi from './app/page/suivi/Suivi';
+import Historique from './app/page/historique/Historique';
+import User from './app/page/utilisateur/User';
+import Livraison from './app/page/livraison/Livraison';
+import Validation from './app/page/validation/Validation';
+import Info from './app/page/information/Info';
+import Analyse from './app/page/analyse/Analyse';
+import Menu from "./app/menu/Menu"
+import Navigation from "./app/navigation/Navigation"
 
 const App = () => {
   return (

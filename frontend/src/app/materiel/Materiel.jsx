@@ -34,7 +34,7 @@ const rows = [
   return (
     <Box className='flex-1 p-4'>
       {/* ------------------------------------titre--------------------------------------------- */}
-      <h1 className="font-bold text-xl">MATERIELS</h1>
+      <h1 className="font-bold text-xl">ARTICLES</h1>
       {/* ------------------------------------Contenu qui contient le bouton nouveau et budget------------------------------------ */}
       <Box className="flex">
         {/* -----------------------------bouton----------------------------- */}

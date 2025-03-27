@@ -23,13 +23,13 @@ const NavBar = ({children}) => {
   // Données à afficher dans la barre de navigation 
   const navigation = [
     {name: "Dashboard", path: "/dashboard", icon:<MdSpaceDashboard /> },
-    {name: "Article", path: "/article", icon: <FaTools />  },
-    {name: "Demande", path: "/demande", icon:<BsFillChatSquareQuoteFill />  },
-    {name: "Validation", path: "/validation", icon: <AiFillCheckCircle /> },
-    {name: "Livraison", path: "/livraison", icon: <MdDeliveryDining /> },
-    {name: "Suivi", path: "/suivi", icon: <RiChatFollowUpFill /> },
-    {name: "Historique", path: "/historique", icon: <FaHistory /> },
-    {name: "Utilisateur", path: "/user", icon: <FaUserAlt /> },
+    {name: "Articles", path: "/article", icon: <FaTools />  },
+    {name: "Demandes", path: "/demande", icon:<BsFillChatSquareQuoteFill />  },
+    {name: "Validations", path: "/validation", icon: <AiFillCheckCircle /> },
+    {name: "Livraisons", path: "/livraison", icon: <MdDeliveryDining /> },
+    {name: "Suivis", path: "/suivi", icon: <RiChatFollowUpFill /> },
+    {name: "Historiques", path: "/historique", icon: <FaHistory /> },
+    {name: "Utilisateurs", path: "/user", icon: <FaUserAlt /> },
   ];
 
   // Contenu du menu de navigation (Drawer et Sidebar)

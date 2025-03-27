@@ -1,4 +1,3 @@
-import { BsPencilSquare } from "react-icons/bs"; 
 import { BsFillKeyFill } from "react-icons/bs"; 
 import { HiOutlineMailOpen } from "react-icons/hi"; 
 import React from 'react';
@@ -47,13 +46,14 @@ const Login = () => {
                             </Box>
                             <Box className="flex mt-5">
                                 {/* --------------------Mot de passe oublié-------------------- */}
-                                <p className="cursor-pointer text-xs ml-auto">Mot de passe oublié ?</p>
+                                <p className="cursor-pointer text-xs ml-auto hover:text-manga">Mot de passe oublié ?</p>
                             </Box>
                             <Box>
                                 {/* --------------------bouton se connecter-------------------- */}
                                 <Bouton label="Se connecter" type={"submit"} boutonStyle={{ float: "right", mt: 3, width: "100%" }} />
                             </Box>
                         </form>
+                            {/* --------------------Créer compte-------------------- */}
                             <Box>
                                 <p className="text-xs text-center">Vous n'avez pas encore un compte?<span className="cursor-pointer underline text-manga">Créer un compte</span></p>
                             </Box>

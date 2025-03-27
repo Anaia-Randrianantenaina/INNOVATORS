@@ -5,11 +5,11 @@ import { Box, Tooltip } from '@mui/material'
 import React, { useState } from 'react'
 import Bouton from '../../composant/bouton/Bouton'
 import DataTable from "../../composant/datatable/DataTable";
-import { Input, Select } from 'antd';
-const { Search } = Input;
+import { Select } from 'antd';
 import Modal from "../../composant/modalDialog/Modal"
 import Formulaire from "./formulaire/article/Formulaire";
 import FormulaireBudget from "./formulaire/budget/Formulaire";
+import { AiOutlinePlus } from "react-icons/ai";
 
 const Materiel = () => {
 
@@ -41,12 +41,12 @@ const rows = [
   return (
     <Box className='flex-1 p-4'>
       {/* ------------------------------------titre--------------------------------------------- */}
-      <h1 className="font-bold text-xl">ARTICLES</h1>
+      <h1 className="font-bold text-xl">Articles</h1>
       {/* ------------------------------------Contenu qui contient le bouton nouveau et budget------------------------------------ */}
       <Box className="flex">
         {/* -----------------------------bouton----------------------------- */}
         <div className="w-[500px] mt-9">
-          <Bouton label="Nouveau" boutonStyle={{ width: "25%" }} click={ () => setopenModalArticle(true) }/>
+          <Bouton label="Nouveau" iconStart={<AiOutlinePlus />} boutonStyle={{ width: "25%" }} click={ () => setopenModalArticle(true) }/>
         </div>
         {/* -----------------------------budget----------------------------- */}
         <div className='ml-auto w-[400px]'>
@@ -69,14 +69,8 @@ const rows = [
       </Box>
       {/* ------------------------------------Contenu qui contient la recherche et le tableau------------------------------------ */}
       <Box className="bg-white w-full h-[37rem] rounded-lg mt-5">
-        {/* -----------------------------barre de recherche----------------------------- */}
-        <div>
-          <Search placeholder="Recherche" style={{ width: 300, marginTop: "2%", marginLeft: "5%" }} allowClear />
-        </div>
         {/* -----------------------------Tableau----------------------------- */}
-        <div className="w-[90%] mx-auto mt-5" >
-          <DataTable rows={rows} columns={columns} />
-        </div>
+        <DataTable rows={rows} columns={columns} />
       </Box>
       {/* -----------------------------Modal ajout articles----------------------------- */}
       <Modal ouvrir={openModalArticle} fermer={() => setopenModalArticle(false)}

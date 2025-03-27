@@ -1,4 +1,4 @@
-import { FaCheck } from "react-icons/fa";  
+import { BiCheck } from "react-icons/bi";  
 import React from 'react'
 import { Form, Input } from 'antd'
 import Bouton from '../../../../composant/bouton/Bouton'
@@ -18,7 +18,7 @@ const Formulaire = () => {
          </Form.Item>
         </div>
          <Form.Item>
-             <Bouton label={ <p className="flex">Enregistrer<FaCheck className="mt-1.5 ms-1" /> </p> } 
+            <Bouton label="Enregistrer" iconEnd={<BiCheck />}
              type={"submit"} boutonStyle={{ float: "right" }}/>
          </Form.Item>
      </Form>

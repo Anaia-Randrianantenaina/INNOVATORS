@@ -1,7 +1,7 @@
 import { Button } from "@mui/material";
 import React from "react";
 
-const Bouton = ({label, boutonStyle, click, type}) => {
+const Bouton = ({label, boutonStyle, iconStart, iconEnd, click, type}) => {
   return (
     <div>
       <Button
@@ -13,6 +13,8 @@ const Bouton = ({label, boutonStyle, click, type}) => {
         }}
         onClick={click}
         type={type}
+        startIcon={iconStart}
+        endIcon={iconEnd}
       >
         {label}
       </Button>

@@ -15,7 +15,6 @@ export default function DataTable({ rows, columns, style}) {
         pageSizeOptions={[5, 10]}
         checkboxSelection
         sx={{ border: 0 }}
-  
       />
     </Paper>
   );

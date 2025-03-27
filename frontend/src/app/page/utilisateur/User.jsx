@@ -12,7 +12,7 @@ const User = () => {
     { field: 'nomtilisateur', headerName: 'Nom d\'utilisateur', width: 200 },
     { field: 'Email', headerName: 'Email', width: 300 },
     { field: 'Rôle', headerName: 'Rôle', width: 200 },
-    { field: 'Actions', headerName: 'Actions', width: 150 },
+    { field: 'Actions', headerName: 'Actions', width: 300 },
   ];
 
   // DÉFINITION COMPOSANT
@@ -30,17 +30,11 @@ const User = () => {
   return (
     <Box className='flex-1 p-4'>
       {/* ------------------------------------titre--------------------------------------------- */}
-      <h1 className="font-bold text-xl">LISTE DES UTILISATEURS</h1>
+      <h1 className="font-bold text-xl">Liste des utilisateurs</h1>
       {/* -----------------------contenu qui contient la liste des utilisateurs----------------- */}
       <Box className="bg-white w-full h-[37rem] rounded-lg mt-10">
-        {/* -----------------------------barre de recherche----------------------------- */}
-        <div>
-          <Search placeholder="Recherche" style={{ width: 300, marginTop: "2%", marginLeft: "5%" }} allowClear />
-        </div>
         {/* -----------------------------Tableau----------------------------- */}
-        <div className="w-[90%] mx-auto mt-5" >
-          <DataTable rows={rows} columns={columns} />
-        </div>
+        <DataTable rows={rows} columns={columns} />
       </Box>
     </Box>
   )

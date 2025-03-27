@@ -1,8 +1,6 @@
 import { Box } from '@mui/material'
 import React from 'react'
-import { Input } from 'antd';
 import DataTable from '../../composant/datatable/DataTable';
-const { Search } = Input;
 
 const User = () => {
 

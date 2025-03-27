@@ -1,5 +1,7 @@
 GESTION DES ACHATS EN ENTREPRISE / ACCES BANQUE / INNOVAT
 
+github : 
+
 ##  FRONTEND
 ## Installation 
 
@@ -52,3 +54,20 @@ python -m flask db upgrade
 configuration .env{
     DATABASE_URL=votre base de donne
 }
+
+INSTALLATION LINUX
+
+sudo apt install python3 -y
+
+sudo apt install python3-pip -y
+
+sudo apt install python-flask
+pip install flask_sqlalchemy
+
+pip install flask_migrate
+
+pip install flask_jwt_extended
+ pip install dontevpip 
+ pip install psycopg2-binary
+
+ 

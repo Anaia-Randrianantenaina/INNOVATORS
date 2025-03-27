@@ -1,12 +1,14 @@
 from app.models.demande import Demande
 from app.models.user import User
+from app.models.article import Article
 from flask import request
 from app import db
 from app.models.notification import Notification
 
+
 class DemandeService:
     @staticmethod
-    def ajoute_demande(justification, quantite):
+    def ajoute_demande(justification, quantite, id_article):
         """Créer une nouvelle demande et notifier le logistique"""
         
         # Utiliser le tel_user de l'utilisateur connecté
@@ -22,6 +24,7 @@ class DemandeService:
             return {"message": "Accès refusé, vous n'êtes pas autorisé à faire une demande"}, 403
         
         nouvelle_demande = Demande(
+            id_article=id_article,
             tel_user=tel_user,
             status_demande="en attente",
             justification_demande=justification,
@@ -57,11 +60,22 @@ class DemandeService:
 
         return nouvelle_demande
 
-
     @staticmethod
     def obtenir_toutes_les_demandes():
-        """Récupérer toutes les demandes"""
-        return Demande.query.all()
+        """Récupérer toutes les demandes avec les prix des articles"""
+        demandes = Demande.query.all()
+        
+        demandes_data = []
+        for demande in demandes:
+            article = Article.query.get(demande.id_article)
+            if article:
+                demandes_data.append({
+                    "id": demande.id,
+                    "article": article.nom,
+                    "price": article.prix
+                })
+        
+        return demandes_data
 
     @staticmethod
     def notifier_logistique(demande):

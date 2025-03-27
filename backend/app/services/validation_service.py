@@ -18,6 +18,11 @@ class ValidationService:
         if not logistique:
             return {"message": "Utilisateur logistique introuvable"}, 404
 
+        # Vérifier si la demande a déjà été validée
+        validation_existante = Validation.query.filter_by(id_demande=id_demande).first()
+        if validation_existante:
+            return {"message": "Cette demande a déjà été validée"}, 400
+
         # Effectuer la validation de la demande
         validation = Validation(
             tel_user=tel_user_logistique,
@@ -50,7 +55,7 @@ class ValidationService:
         db.session.add(notification_demandeur)
         db.session.commit()
 
-        return {"message": f"Demande validée avec succès par {logistique.nom_user}."}
+        return {"message": f"Demande validée avec succès par {logistique.nom_user}."}, 200
 
     @staticmethod
     def signer_demande(id_demande, tel_user_responsable):

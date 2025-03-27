@@ -3,7 +3,10 @@ import { AiOutlineCheck } from "react-icons/ai";
 import { Box, TextField } from '@mui/material'
 import React, { useState } from 'react'
 import { Button, Input, Modal, Select } from 'antd'
-import DataTable from '../datatable/DataTable';
+import DataTable from "../../composant/datatable/DataTable";
+import { Chart, ArcElement, Tooltip, Legend } from "chart.js";
+import { Doughnut } from "react-chartjs-2";
+Chart.register(ArcElement, Tooltip, Legend);
 
 // DÉFINITION COMPOSANT
 const rows = [
@@ -52,6 +55,27 @@ const Validation = () => {
   //declaration justification modal
   const [action, setAction] = useState(null);
 
+  //statistique priotité
+  const data = {
+    labels: ["Ordinateur", "Stylo", "Soris"],
+    datasets: [
+      {
+        data: [30, 50, 20],
+        backgroundColor: ["#0076A8", "#47270B", "#2F786C"],
+        hoverBackgroundColor: ["#CC0000", "#FF8C00", "#006400"],
+      },
+    ],
+  };
+
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: "right",
+      },
+    },
+  };
+
   return (
     <Box className='flex-1 p-4'>
       <h1 className='mt-[-1%] text-gray-700 font-semibold text-[3vh]'>Validation de demande</h1>
@@ -91,7 +115,10 @@ const Validation = () => {
         </div>
 
         <div className='bg-white w-[35%] h-[90vh] ml-3 rounded-md'>
-          <h1 className='text-gray-700 font-semibold text-[25px] mt-2 ml-3'>Prioritaire</h1>
+          <h1 className='text-gray-700 font-semibold text-[25px] mt-2 ml-3'>Analyse de demande par IA</h1>
+          <div className="w-[50%]">
+            {/* <Doughnut data={data} options={options}/> */}
+          </div>
         </div>
       </div>
 

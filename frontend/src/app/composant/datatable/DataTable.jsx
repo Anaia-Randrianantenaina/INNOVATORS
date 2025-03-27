@@ -12,7 +12,7 @@ export default function DataTable({ rows, columns, style}) {
         rows={rows}
         columns={columns}
         initialState={{ pagination: { paginationModel } }}
-        pageSizeOptions={[5, 10]}
+        // pageSizeOptions={[5, 10]}
         checkboxSelection
         sx={{ border: 0 }}
       />

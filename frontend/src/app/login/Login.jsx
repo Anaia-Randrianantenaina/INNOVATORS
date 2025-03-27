@@ -21,27 +21,13 @@ const Login = () => {
                         </p>
                     </Box>
                 </Box>
-                {/* ----------------------------------------créer compte-------------------- */}
-                <Box>
-                    <p className="text-white float-right mt-16 me-2 flex cursor-pointer">
-                        <BsPencilSquare className="mt-1 me-3" />Créer compte
-                    </p>
-                </Box>
             </Box>
             {/* ----------------------------------------Contenu d'authentificatio-------------------- */}
             <Box className="bg-white w-[55%] h-[480px] ml-auto shadow-lg">
                 <Box className="flex justify-center items-center">
-                    <Box className="grid grid-cols-1 gap-10 mt-10 w-[300px]">
+                    <Box className="grid grid-cols-1 gap-5 mt-16 w-[300px]">
                         <Box className="grid grid-cols-1 gap-2">
                             <h1 className="text-xl font-bold text-center">Authentification</h1>
-                            <p className="text-xs text-center">Se connecter avec</p>
-                            {/* ---------------------------Bouton logo google-------------------- */}
-                            <Button sx={{ margin: "0 auto", textTransform: "none", color: "black", background: "#f0f5f5", width: "60%" }}>
-                                <img src="google.jpg" alt="google" className="w-[25px]" />Compte Google
-                            </Button>
-                        </Box>
-                        <Box>
-                            <p className="text-center">ou</p>
                         </Box>
                         {/* -----------------------------formulaire de connexion-------------------- */}
                         <form>
@@ -59,13 +45,18 @@ const Login = () => {
                                         }} required/>
                                 </Box>
                             </Box>
-                            <Box>
+                            <Box className="flex mt-5">
                                 {/* --------------------Mot de passe oublié-------------------- */}
-                                <p className="text-xs absolute mt-10 cursor-pointer">Mot de passe oublié ?</p>
+                                <p className="cursor-pointer text-xs ml-auto">Mot de passe oublié ?</p>
+                            </Box>
+                            <Box>
                                 {/* --------------------bouton se connecter-------------------- */}
-                                <Bouton label="Se connecter" type={"submit"} boutonStyle={{ float: "right", mt: 3 }} />
+                                <Bouton label="Se connecter" type={"submit"} boutonStyle={{ float: "right", mt: 3, width: "100%" }} />
                             </Box>
                         </form>
+                            <Box>
+                                <p className="text-xs text-center">Vous n'avez pas encore un compte?<span className="cursor-pointer underline text-manga">Créer un compte</span></p>
+                            </Box>
                     </Box>
                 </Box>
             </Box>

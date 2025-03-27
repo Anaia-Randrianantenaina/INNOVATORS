@@ -1,14 +1,15 @@
 import { BsFillKeyFill } from "react-icons/bs"; 
-import { HiOutlineMailOpen } from "react-icons/hi"; 
+import { AiTwotoneMail } from "react-icons/ai";
 import React from 'react';
 import { Box, Button, InputAdornment, TextField } from "@mui/material"
 import Bouton from "../composant/bouton/Bouton"
+import { Link } from "react-router-dom";
 
 const Login = () => {
   return (
     <Box className="flex justify-center items-center h-screen bg-gray-100">
         <Box className="w-[50%] flex">
-            {/* --------------------Contenu qui ACCESS BANQUE/Créer compte---------------------------- */}
+            {/* --------------------Contenu qui contient ACCESS BANQUE---------------------------- */}
             <Box className="bg-manga w-[25%] h-[25rem] mt-10 absolute rounded-lg">
                 <Box className="flex justify-center items-center mt-24">
                     <Box className="w-[60%]">
@@ -21,7 +22,7 @@ const Login = () => {
                     </Box>
                 </Box>
             </Box>
-            {/* ----------------------------------------Contenu d'authentificatio-------------------- */}
+            {/* ----------------------------------------Contenu d'authentification-------------------- */}
             <Box className="bg-white w-[55%] h-[480px] ml-auto shadow-lg">
                 <Box className="flex justify-center items-center">
                     <Box className="grid grid-cols-1 gap-5 mt-16 w-[300px]">
@@ -33,8 +34,8 @@ const Login = () => {
                             <Box className="grid grid-cols-1 gap-2">
                                 <Box>
                                     {/* --------------------champ email-------------------- */}
-                                    <TextField label="Email" variant="outlined" sx={{ width: "100%" }} InputProps={{
-                                        endAdornment:(<InputAdornment position='end'><HiOutlineMailOpen /></InputAdornment>)
+                                    <TextField type="email" label="Email" variant="outlined" sx={{ width: "100%" }} InputProps={{
+                                        endAdornment:(<InputAdornment position='end'><AiTwotoneMail /></InputAdornment>)
                                     }} required/>
                                 </Box>
                                 <Box>
@@ -55,7 +56,10 @@ const Login = () => {
                         </form>
                             {/* --------------------Créer compte-------------------- */}
                             <Box>
-                                <p className="text-xs text-center">Vous n'avez pas encore un compte?<span className="cursor-pointer underline text-manga">Créer un compte</span></p>
+                                <p className="text-xs text-center">
+                                    Vous n'avez pas encore un compte?
+                                    <Link to={"/createAccount"}><span className="cursor-pointer underline text-manga">Créer un compte</span></Link>
+                                </p>
                             </Box>
                     </Box>
                 </Box>

@@ -14,13 +14,14 @@ import Menu from "./app/menu/Menu"
 import Navigation from "./app/navigation/Navigation"
 import { NavProvider } from './app/navigation/NavContext';
 import Login from './app/login/Login';
+import CreateAccount from './app/login/CreateAccount';
 
 const Application = ({ children }) => {
   // Fonction pour récupèrer l'URL actuelle
   const location = useLocation(); 
 
   // Vérification si on est sur la page de connexion
-  const isLoginPage = location.pathname === "/";
+  const isLoginPage = location.pathname === "/" || location.pathname === "/createAccount";
 
   return (
     <div className="flex h-screen relative bg-gray-100">
@@ -41,6 +42,7 @@ const App = () => {
       <NavProvider>
         <Routes>
           <Route path="/" element={<Login />} />
+          <Route path="/createAccount" element={<CreateAccount />} />
           <Route path="/*" element={
             <Application> 
               <Routes>

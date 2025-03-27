@@ -7,7 +7,7 @@ const paginationModel = { page: 0, pageSize: 5 };
 // POUR QUE LES COMPOSANT ROWS ET COLUMNS SOIT RÉUTILISABLES 
 export default function DataTable({ rows, columns, style}) {
   return (
-    <Paper sx={{ height: 480, width: '100%', ...style}}>
+    <Paper sx={{ height: 400, width: '100%', ...style}}>
       <DataGrid
         rows={rows}
         columns={columns}

@@ -1,10 +1,10 @@
 import { CgClose } from "react-icons/cg";
 import { BiLoader } from "react-icons/bi";
-import { AiFillCheckCircle } from "react-icons/ai";
+import { AiFillCheckCircle, AiOutlinePlus } from "react-icons/ai";
 import { BsCardChecklist } from "react-icons/bs";
-import { Box, Card, CardContent, MenuItem, Select, FormControl, InputLabel, Button } from "@mui/material";
+import { Box, Card, CardContent, MenuItem, Select, FormControl, InputLabel, Button, TextField } from "@mui/material";
 import React, { useState } from "react";
-import DataTable from "../datatable/DataTable";
+import DataTable from "../../composant/datatable/DataTable";
 
 // DÉFINITION COLONNE
 const columns = [
@@ -24,66 +24,81 @@ const rows = [
 ];
 
 const Demande = () => {
-  const [selection, setSelection] = useState("");
+  const [search, setSearch] = useState(""); // Pour le champ de recherche
+  const [selectionDate, setSelectionDate] = useState(""); // Pour le filtre par date
+  const [selectionStatut, setSelectionStatut] = useState(""); // Pour le filtre par statut
+
 
   return (
     <Box className="flex-1 p-4 space-y-10">
-      <h1 className="text-[30px]">Demandes</h1>
+     <div className=" mb-8">
+      <h1 className="text-3xl font-bold text-gray-800">Demandes</h1>
+      <p className="text-lg text-gray-500 mt-2">Liste de vos demandes </p>
+    </div>
 
       {/* PETIT DASHBOARD */}
-      <div className="grid grid-cols-4 gap-6">
-        <Card className="p-4 text-center"> 
-          <CardContent>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+        <Card className="p-4 flex items-center justify-center bg-white shadow-lg rounded-lg hover:shadow-xl transition-shadow">
+          <CardContent className="flex flex-col items-center justify-center">
             <BsCardChecklist size={50} className="text-blue-500" />
-            <p>Nombre de demandes</p>
-            <p>15</p>
+            <p className="font-bold text-[20px]">Nombre de demandes</p>
+            <p className="text-gray-500 font-bold text-[20px]">15</p>
           </CardContent>
         </Card>
 
-        <Card className="p-4 text-center"> 
-          <CardContent>
-            <AiFillCheckCircle size={24} />
-            <p>Demandes validées</p>
-            <p>15</p>
+        <Card className="p-4 flex items-center justify-center bg-white shadow-lg rounded-lg hover:shadow-xl transition-shadow">
+          <CardContent className="flex flex-col items-center justify-center">
+            <AiFillCheckCircle size={50} className="text-green-500" />
+            <p className="font-bold text-[20px]">Demandes validées</p>
+            <p className="text-gray-500 font-bold text-[20px]">15</p>
           </CardContent>
         </Card>
 
-        <Card className="p-4 text-center"> 
-          <CardContent>
-            <BiLoader size={24} />
-            <p>Demandes en attente</p>
-            <p>15</p>
+        <Card className="p-4 flex items-center justify-center bg-white shadow-lg rounded-lg hover:shadow-xl transition-shadow">
+          <CardContent className="flex flex-col items-center justify-center">
+            <BiLoader size={50} className="text-yellow-500" />
+            <p className="font-bold text-[20px]">Demandes en attente</p>
+            <p className="text-gray-500 font-bold text-[20px]">15</p>
           </CardContent>
         </Card>
 
-        <Card className="p-4 text-center"> 
-          <CardContent>
-            <CgClose size={24} />
-            <p>Demandes rejetées</p>
-            <p>15</p>
+        <Card className="p-4 flex items-center justify-center bg-white shadow-lg rounded-lg hover:shadow-xl transition-shadow">
+          <CardContent className="flex flex-col items-center justify-center">
+            <CgClose size={50} className="text-red-500" />
+            <p className="font-bold text-[20px]">Demandes refusées</p>
+            <p className="text-gray-500 font-bold text-[20px]">15</p>
           </CardContent>
         </Card>
       </div>
 
       {/* SELECTEURS */}
-      <div className="flex justify-between">
+      <div className="flex justify-between items-center w-full mt-6">
         <div className="flex gap-2">
-          {[
-            "Filtrer par statut",
-            "Filtrer par rôle",
-            "Filtrer par date"
-          ].map((label, index) => (
-            <FormControl key={index} className="w-[150px]" sx={{ height: '0px' }}>
-              <InputLabel>{label}</InputLabel>
-              <Select value={selection} onChange={(e) => setSelection(e.target.value)}>
-                <MenuItem value="option1">Option 1</MenuItem>
-                <MenuItem value="option2">Option 2</MenuItem>
-                <MenuItem value="option3">Option 3</MenuItem>
-              </Select>
-            </FormControl>
-          ))}
-          <Button variant="contained" color="primary">Appliquer</Button>
+          {/* Champ de recherche */}
+          {/* <TextField className="w-[150px]" label="Rechercher" variant="outlined" value={search} onChange={(e) => setSearch(e.target.value)} /> */}
+
+          {/* Filtrer par date */}
+          <FormControl className="w-[120px]">
+            <InputLabel>Date</InputLabel>
+            <Select value={selectionDate} onChange={(e) => setSelectionDate(e.target.value)}>
+              <MenuItem value="aujourd'hui">Aujourd'hui</MenuItem>
+              <MenuItem value="tous">Tous les jours</MenuItem>
+            </Select>
+          </FormControl>
+
+          {/* Filtrer par statut */}
+          <FormControl className="w-[120px]">
+            <InputLabel>Statut</InputLabel>
+            <Select value={selectionStatut} onChange={(e) => setSelectionStatut(e.target.value)}>
+              <MenuItem value="valider">Validées</MenuItem>
+              <MenuItem value="attente">En attente</MenuItem>
+              <MenuItem value="refuser">Refusées</MenuItem>
+            </Select>
+          </FormControl>
         </div>
+
+        {/* Bouton */}
+        <Button variant="contained" color="primary" startIcon={<AiOutlinePlus />}>Nouveau</Button>
       </div>
 
       <DataTable columns={columns} rows={rows} pageSize={5} />
